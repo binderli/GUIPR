@@ -1,6 +1,8 @@
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -14,33 +16,79 @@ import org.eclipse.swt.widgets.Text;
 
 public class EditorAnwendung {
 
+	private Button buttonOpen, buttonSave;
+	private CoolBar coolBar;
 	private Display display;
-	private Shell shell;
-	private Menu menuBar;
-	private Menu layer1[];
-	private final String[] menuNames = { "&File", "&Edit", "&Help" };
-	private final String[] fileMenuNames = { "&New", "&Open...", "&Save...", "&Quit" };
-	private final String[] editMenuNames = { "&Text Color" };
-	private final String[] helpMenuNames = { "&Version" };
-	private MenuItem[] menuBarItem;
-	private MenuItem[] fileMenuItem;
+
 	private MenuItem[] editMenuItem;
+	private final String[] editMenuNames = { "&Text Color" };
+	private MenuItem[] fileMenuItem;
+	private final String[] fileMenuNames = { "&New", "&Open...", "&Save...", "&Quit" };
 	private MenuItem[] helpMenuItem;
-	private CoolItem[] coolBarItem;
-	private final String[] coolBarItemNames = { "Open", "Save" };
-	private CTabFolder tabFolder;
+	private final String[] helpMenuNames = { "&Version" };
+	private CoolItem itemOpen, itemSave;
+	private Menu layer1[];
+
+	private Menu menuBar;
+	private MenuItem[] menuBarItem;
+	private final String[] menuNames = { "&File", "&Edit", "&Help" };
+	private Shell shell;
+
 	private CTabItem tab;
+	private CTabFolder tabFolder;
 	private Text text;
-	private Button[] buttons;
+
+	public EditorAnwendung() {
+		createDisplay();
+		createShell();
+		createMenu();
+		createCoolBar();
+		createTab();
+
+	}
+
+	public void createCoolBar() {
+		// Coolbar erstellen
+		coolBar = new CoolBar(shell, SWT.BORDER);
+		// Button für Öffnen erstellen
+		itemOpen = new CoolItem(coolBar, SWT.NONE);
+		buttonOpen = new Button(coolBar, SWT.PUSH);
+		Image openImage = new Image(display, "Pictures/Open.png");
+		buttonOpen.setImage(openImage);
+		itemOpen.setPreferredSize(itemOpen.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		itemOpen.setControl(buttonOpen);
+
+		// Button für Speichern erstellen
+		itemSave = new CoolItem(coolBar, SWT.NONE);
+		buttonSave = new Button(coolBar, SWT.PUSH);
+		Image saveImage = new Image(display, "Pictures/Save.png");
+		buttonSave.setImage(saveImage);
+		itemSave.setPreferredSize(itemSave.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		itemSave.setControl(buttonSave);
+		coolBar.pack();
+	}
+
+	//	private void createCoolBar() {
+	//
+	//		coolBar = new CoolBar(shell, SWT.BORDER);
+	//		final GridData gDataCoolBar = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+	//		coolBar.setLayoutData(gDataCoolBar);
+	//
+	//		coolBarItem = new CoolItem[coolBarItemNames.length];
+	//
+	//		for (int i = 0; i < coolBarItemNames.length; i++) {
+	//			coolBarItem[i] = new CoolItem(coolBar, SWT.NONE);
+	//			buttons[i] = new Button(coolBar, SWT.PUSH);
+	//			Image buttonImage = new Image(display, "Pictures/Open.jpg");
+	//			buttons[i].setImage(buttonImage);
+	//
+	//		}
+	//		coolBar.pack();
+	//
+	//	}
 
 	private void createDisplay() {
 		display = new Display();
-	}
-
-	private void createShell() {
-		shell = new Shell(display);
-		final GridLayout shellLayout = new GridLayout(1, true);
-		shell.setLayout(shellLayout);
 	}
 
 	private void createMenu() {
@@ -84,52 +132,31 @@ public class EditorAnwendung {
 
 	}
 
-	private void createCoolBar() {
-
-		final CoolBar coolBar = new CoolBar(shell, SWT.BORDER);
-		final GridData gDataCoolBar = new GridData(SWT.FILL, SWT.NONE, true, false, 1, 1);
-		coolBar.setLayoutData(gDataCoolBar);
-
-		coolBarItem = new CoolItem[coolBarItemNames.length];
-		buttons = new Button[coolBarItemNames.length];
-		for (int i = 0; i < coolBarItemNames.length; i++) {
-			coolBarItem[i] = new CoolItem(coolBar, SWT.NONE | SWT.DROP_DOWN);
-			buttons[i] = new Button(coolBar, SWT.PUSH);
-			// button.setImage();
-		}
-		final Button testButton = new Button(coolBar, SWT.PUSH);
-
-		testButton.setText("Hello");
-		testButton.pack();
-
-		coolBarItem[0].setControl(testButton);
-		coolBar.pack();
+	private void createShell() {
+		shell = new Shell(display);
+		final GridLayout shellLayout = new GridLayout(1, true);
+		shell.setLayout(shellLayout);
 	}
 
 	private void createTab() {
-		tabFolder = new CTabFolder(shell, SWT.NONE);
+		tabFolder = new CTabFolder(shell, SWT.MULTI);
+		final FillLayout tabFolderLayout = new FillLayout();
+		tabFolderLayout.type = SWT.VERTICAL | SWT.HORIZONTAL;
+		tabFolder.setLayout(tabFolderLayout);
 		// x/y auf FILL setzen, grabExcess... auf true
+
 		final GridData gDataTabFolder = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		tabFolder.setLayoutData(gDataTabFolder);
 
 		tab = new CTabItem(tabFolder, SWT.NONE);
-		tab.setText("New");
 		createText();
+		tab.setText("New");
 		tab.setControl(text);
 
 	}
 
 	private void createText() {
 		text = new Text(tabFolder, SWT.LEFT | SWT.MULTI);
-	}
-
-	public EditorAnwendung() {
-		createDisplay();
-		createShell();
-		createMenu();
-		createCoolBar();
-		createTab();
-
 	}
 
 	public void open() {
