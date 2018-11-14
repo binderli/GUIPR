@@ -1,4 +1,4 @@
-
+package main;
 public class EditorAnwendungMain {
 
 	public static void main(String[] args) {
