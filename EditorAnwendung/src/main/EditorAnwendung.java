@@ -16,7 +16,10 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import listener.SelectionAdapterNew;
 import listener.SelectionAdapterOpen;
+import listener.SelectionAdapterQuit;
+import listener.SelectionAdapterSave;
 
 public class EditorAnwendung {
 
@@ -54,8 +57,16 @@ public class EditorAnwendung {
 
 	private void createListeners() {
 
-		fileMenuItem[1].addSelectionListener(new SelectionAdapterOpen(shell, text, tab));
-		buttonOpen.addSelectionListener(new SelectionAdapterOpen(shell, text, tab));
+		// New
+		fileMenuItem[0].addSelectionListener(new SelectionAdapterNew(tabFolder));
+		// Open
+		fileMenuItem[1].addSelectionListener(new SelectionAdapterOpen(shell, text, tabFolder));
+		buttonOpen.addSelectionListener(new SelectionAdapterOpen(shell, text, tabFolder));
+		// Save
+		fileMenuItem[2].addSelectionListener(new SelectionAdapterSave(shell, text, tabFolder));
+		buttonSave.addSelectionListener(new SelectionAdapterSave(shell, text, tabFolder));
+		// Quit
+		fileMenuItem[3].addSelectionListener(new SelectionAdapterQuit());
 	}
 
 	public void createCoolBar() {
