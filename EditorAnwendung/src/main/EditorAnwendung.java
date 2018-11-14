@@ -1,4 +1,5 @@
 package main;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -14,6 +15,8 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import listener.SelectionAdapterOpen;
 
 public class EditorAnwendung {
 
@@ -45,25 +48,36 @@ public class EditorAnwendung {
 		createMenu();
 		createCoolBar();
 		createTab();
+		createListeners();
 
 	}
 
+	private void createListeners() {
+
+		fileMenuItem[1].addSelectionListener(new SelectionAdapterOpen(shell, text, tab));
+		buttonOpen.addSelectionListener(new SelectionAdapterOpen(shell, text, tab));
+	}
+
 	public void createCoolBar() {
+		// final Image image =
+		// PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER);
 		// Coolbar erstellen
-		coolBar = new CoolBar(shell, SWT.BORDER);
+		coolBar = new CoolBar(shell, SWT.HORIZONTAL);
 		// Button fuer Oeffnen erstellen
 		itemOpen = new CoolItem(coolBar, SWT.NONE);
 		buttonOpen = new Button(coolBar, SWT.PUSH);
-		final Image openImage = new Image(display, "Pictures/Open.png");
-		buttonOpen.setImage(openImage);
+
+		// buttonOpen.setImage(image);
+		buttonOpen.setText("Open");
 		itemOpen.setPreferredSize(itemOpen.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		itemOpen.setControl(buttonOpen);
 
 		// Button fuer Speichern erstellen
 		itemSave = new CoolItem(coolBar, SWT.NONE);
 		buttonSave = new Button(coolBar, SWT.PUSH);
-		final Image saveImage = new Image(display, "Pictures/Save.png");
-		buttonSave.setImage(saveImage);
+		new Image(display, "Pictures/Save.png");
+		// buttonSave.setImage(saveImage);
+		buttonSave.setText("Save");
 		itemSave.setPreferredSize(itemSave.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		itemSave.setControl(buttonSave);
 		coolBar.pack();
@@ -149,12 +163,11 @@ public class EditorAnwendung {
 
 		final GridData gDataTabFolder = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		tabFolder.setLayoutData(gDataTabFolder);
-
 		tab = new CTabItem(tabFolder, SWT.NONE);
 		createText();
 		tab.setText("New");
 		tab.setControl(text);
-
+		tabFolder.setSelection(0);
 	}
 
 	private void createText() {
