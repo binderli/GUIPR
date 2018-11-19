@@ -15,17 +15,16 @@ public class SelectionAdapterNew extends SelectionAdapter {
 
 	public SelectionAdapterNew(CTabFolder tabFolder) {
 		this.tabFolder = tabFolder;
+
 	}
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-
 		tab = new CTabItem(tabFolder, SWT.NONE);
-		this.text = new Text(tabFolder, SWT.LEFT | SWT.MULTI);
-		this.tab.setControl(text);
-		this.tab.setText("New");
-		this.tabFolder.setSelection(tab);
-
+		text = new Text(tabFolder, SWT.LEFT | SWT.MULTI);
+		tab.setText("New");
+		tab.setControl(text);
+		tabFolder.setSelection(tab);
 	}
 
 }

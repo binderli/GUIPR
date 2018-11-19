@@ -4,7 +4,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -44,12 +43,14 @@ public class EditorAnwendung {
 	private CTabItem tab;
 	private CTabFolder tabFolder;
 	private Text text;
+	private TextColorDialog dlg;
 
 	public EditorAnwendung() {
 		createDisplay();
 		createShell();
 		createMenu();
 		createCoolBar();
+		createTabFolder();
 		createTab();
 		createListeners();
 
@@ -165,20 +166,20 @@ public class EditorAnwendung {
 		shell.setLayout(shellLayout);
 	}
 
-	private void createTab() {
+	public void createTabFolder() {
 		tabFolder = new CTabFolder(shell, SWT.NONE);
-		final FillLayout tabFolderLayout = new FillLayout();
-		tabFolderLayout.type = SWT.VERTICAL | SWT.HORIZONTAL;
-		tabFolder.setLayout(tabFolderLayout);
-		// x/y auf FILL setzen, grabExcess... auf true
 
+		// x/y auf FILL setzen, grabExcess... auf true
 		final GridData gDataTabFolder = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		tabFolder.setLayoutData(gDataTabFolder);
+	}
+
+	public void createTab() {
 		tab = new CTabItem(tabFolder, SWT.NONE);
 		createText();
 		tab.setText("New");
 		tab.setControl(text);
-		tabFolder.setSelection(0);
+		tabFolder.setSelection(tab);
 	}
 
 	private void createText() {

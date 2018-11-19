@@ -29,9 +29,10 @@ public class SelectionAdapterSave extends SelectionAdapter {
 		saveDialog.open();
 		final String path = saveDialog.getFilterPath();
 		final String fileName = saveDialog.getFileName();
-		final String file = path + "//" + fileName;
-		FileIO.write(fileName, text.getText());
+		final String file = path + "\\" + fileName;
+		FileIO.write(file, text.getText());
 		this.tab.setText(fileName);
+		System.out.println(file);
 
 	}
 
