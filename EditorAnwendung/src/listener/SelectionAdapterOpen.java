@@ -32,26 +32,24 @@ public class SelectionAdapterOpen extends SelectionAdapter {
 		String file;
 		switch(System.getProperty("os.name")){
 			
-		case "Mac OS X":
-			file = path + "/" + fileName;
-			System.out.println(file);
-			text.setText(FileIO.read(file));
-			tab.setText(fileName);
-			break;
+			case "Mac OS X":
+				file = path + "/" + fileName;
+				System.out.println(file);
+				text.setText(FileIO.read(file));
+				tab.setText(fileName);
+				break;
+				
 			
-		
-		case "Windows 10":
-			file = path + "\\" + fileName;
-			System.out.println(file);
-			text.setText(FileIO.read(file));
-			tab.setText(fileName);
-			break;
-			
-			
-		default: break;
+			case "Windows 10":
+				file = path + "\\" + fileName;
+				System.out.println(file);
+				text.setText(FileIO.read(file));
+				tab.setText(fileName);
+				break;
+				
+				
+			default: break;
 		}
-		
-
 	}
 
 }

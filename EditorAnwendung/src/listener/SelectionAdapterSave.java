@@ -34,26 +34,23 @@ public class SelectionAdapterSave extends SelectionAdapter {
 		String file;
 		switch(System.getProperty("os.name")){
 			
-		case "Mac OS X":
-			file = path + "/" + fileName;
-			FileIO.write(file, text.getText());
-			this.tab.setText(fileName);
-			System.out.println(file);
-			break;
+			case "Mac OS X":
+				file = path + "/" + fileName;
+				FileIO.write(file, text.getText());
+				this.tab.setText(fileName);
+				System.out.println(file);
+				break;
+				
 			
-		
-		case "Windows 10":
-			file = path + "\\" + fileName;
-			FileIO.write(file, text.getText());
-			this.tab.setText(fileName);
-			System.out.println(file);
-			break;
-			
-			default: break;
+			case "Windows 10":
+				file = path + "\\" + fileName;
+				FileIO.write(file, text.getText());
+				this.tab.setText(fileName);
+				System.out.println(file);
+				break;
+				
+				default: break;
 		}
-		
-		
-
 	}
 
 }
