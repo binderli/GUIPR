@@ -43,7 +43,6 @@ public class EditorAnwendung {
 	private CTabItem tab;
 	private CTabFolder tabFolder;
 	private Text text;
-	private TextColorDialog dlg;
 
 	public EditorAnwendung() {
 		createDisplay();
@@ -71,15 +70,14 @@ public class EditorAnwendung {
 	}
 
 	public void createCoolBar() {
-		// final Image image =
-		// PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER);
+
 		// Coolbar erstellen
 		coolBar = new CoolBar(shell, SWT.HORIZONTAL);
 		// Button fuer Oeffnen erstellen
 		itemOpen = new CoolItem(coolBar, SWT.NONE);
 		buttonOpen = new Button(coolBar, SWT.PUSH);
-
-		// buttonOpen.setImage(image);
+		final Image openImage = new Image(display, "Pictures/Open.png");
+		buttonOpen.setImage(openImage);
 		buttonOpen.setText("Open");
 		itemOpen.setPreferredSize(itemOpen.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		itemOpen.setControl(buttonOpen);
@@ -87,8 +85,8 @@ public class EditorAnwendung {
 		// Button fuer Speichern erstellen
 		itemSave = new CoolItem(coolBar, SWT.NONE);
 		buttonSave = new Button(coolBar, SWT.PUSH);
-		new Image(display, "Pictures/Save.png");
-		// buttonSave.setImage(saveImage);
+		final Image saveImage = new Image(display, "Pictures/Save.png");
+		buttonSave.setImage(saveImage);
 		buttonSave.setText("Save");
 		itemSave.setPreferredSize(itemSave.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		itemSave.setControl(buttonSave);
