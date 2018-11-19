@@ -1,6 +1,6 @@
 package listener;
 
-import java.util.Properties;
+
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
