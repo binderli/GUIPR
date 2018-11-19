@@ -22,28 +22,29 @@ import listener.SelectionAdapterSave;
 
 public class EditorAnwendung {
 
-	private Button buttonOpen, buttonSave;
+	private Button buttonOpen, buttonSave; //Button für CoolBar
 	private CoolBar coolBar;
 	private Display display;
-
-	private MenuItem[] editMenuItem;
-	private final String[] editMenuNames = { "&Text Color" };
-	private MenuItem[] fileMenuItem;
-	private final String[] fileMenuNames = { "&New", "&Open...", "&Save...", "&Quit" };
-	private MenuItem[] helpMenuItem;
-	private final String[] helpMenuNames = { "&Version" };
-	private CoolItem itemOpen, itemSave;
-	private Menu layer1[];
-
-	private Menu menuBar;
-	private MenuItem[] menuBarItem;
+	
+	
+	private MenuItem[] editMenuItem;// Edit Menu
+	private final String[] editMenuNames = { "&Text Color" };//Name von Edit Menu
+	private MenuItem[] fileMenuItem; //File Menu
+	private final String[] fileMenuNames = { "&New", "&Open...", "&Save...", "&Quit" }; //Names von file Menue 
+	private MenuItem[] helpMenuItem;//help Menu
+	private final String[] helpMenuNames = { "&Version" };//Name von help Menu
+	private CoolItem itemOpen, itemSave; 
+	
+	private Menu layer1[];//deffiniert den bereich als Menu
+	private Menu menuBar;//
+	private MenuItem[] menuBarItem;// optionen der MenuBar(Edit,File,Help)
 	private final String[] menuNames = { "&File", "&Edit", "&Help" };
+	
 	private Shell shell;
-
-	private CTabItem tab;
-	private CTabFolder tabFolder;
-	private Text text;
-	private TextColorDialog dlg;
+	private CTabItem tab; // einzelne Tabs
+	private CTabFolder tabFolder; //Bereich für Tabs
+	private Text text;//text in einem Tab 
+	private TextColorDialog dlg;//Dialog feld für textfarbe
 
 	public EditorAnwendung() {
 		createDisplay();
@@ -94,26 +95,6 @@ public class EditorAnwendung {
 		itemSave.setControl(buttonSave);
 		coolBar.pack();
 	}
-
-	// private void createCoolBar() {
-	//
-	// coolBar = new CoolBar(shell, SWT.BORDER);
-	// final GridData gDataCoolBar = new GridData(SWT.FILL, SWT.FILL, true, false,
-	// 1, 1);
-	// coolBar.setLayoutData(gDataCoolBar);
-	//
-	// coolBarItem = new CoolItem[coolBarItemNames.length];
-	//
-	// for (int i = 0; i < coolBarItemNames.length; i++) {
-	// coolBarItem[i] = new CoolItem(coolBar, SWT.NONE);
-	// buttons[i] = new Button(coolBar, SWT.PUSH);
-	// Image buttonImage = new Image(display, "Pictures/Open.jpg");
-	// buttons[i].setImage(buttonImage);
-	//
-	// }
-	// coolBar.pack();
-	//
-	// }
 
 	private void createDisplay() {
 		display = new Display();
@@ -168,9 +149,7 @@ public class EditorAnwendung {
 
 	public void createTabFolder() {
 		tabFolder = new CTabFolder(shell, SWT.NONE);
-
-		// x/y auf FILL setzen, grabExcess... auf true
-		final GridData gDataTabFolder = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		final GridData gDataTabFolder = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1); // x/y auf FILL setzen, grabExcess... auf true
 		tabFolder.setLayoutData(gDataTabFolder);
 	}
 

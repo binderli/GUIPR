@@ -1,5 +1,7 @@
 package listener;
 
+import java.io.File;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -29,27 +31,11 @@ public class SelectionAdapterOpen extends SelectionAdapter {
 		final String path = openDialog.getFilterPath();
 		final String fileName = openDialog.getFileName();
 		
-		String file;
-		switch(System.getProperty("os.name")){
-			
-			case "Mac OS X":
-				file = path + "/" + fileName;
-				System.out.println(file);
-				text.setText(FileIO.read(file));
-				tab.setText(fileName);
-				break;
-				
-			
-			case "Windows 10":
-				file = path + "\\" + fileName;
-				System.out.println(file);
-				text.setText(FileIO.read(file));
-				tab.setText(fileName);
-				break;
-				
-				
-			default: break;
-		}
+		String file = path + File.separator + fileName;
+		file = path + "/" + fileName;
+		System.out.println(file);
+		text.setText(FileIO.read(file));
+		tab.setText(fileName);
 	}
 
 }
