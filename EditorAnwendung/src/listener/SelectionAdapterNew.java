@@ -1,30 +1,28 @@
 package listener;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Shell;
+
+import main.CTabElement;
 
 public class SelectionAdapterNew extends SelectionAdapter {
 
 	private final CTabFolder tabFolder;
-	private CTabItem tab;
-	private Text text;
+	private final Shell shell;
+	private final int insertMark;
 
 	public SelectionAdapterNew(CTabFolder tabFolder) {
+		insertMark = tabFolder.getSelectionIndex();
 		this.tabFolder = tabFolder;
+		this.shell = tabFolder.getShell();
 
 	}
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		tab = new CTabItem(tabFolder, SWT.NONE);
-		text = new Text(tabFolder, SWT.LEFT | SWT.MULTI);
-		tab.setText("New");
-		tab.setControl(text);
-		tabFolder.setSelection(tab);
+		CTabElement.createTabNew(tabFolder);
 	}
 
 }

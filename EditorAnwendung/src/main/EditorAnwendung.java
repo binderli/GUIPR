@@ -2,7 +2,6 @@ package main;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -34,15 +33,14 @@ public class EditorAnwendung {
 	private final String[] helpMenuNames = { "&Version" };
 	private CoolItem itemOpen, itemSave;
 	private Menu layer1[];
-
 	private Menu menuBar;
 	private MenuItem[] menuBarItem;
 	private final String[] menuNames = { "&File", "&Edit", "&Help" };
 	private Shell shell;
 
-	private CTabItem tab;
 	private CTabFolder tabFolder;
 	private Text text;
+	private int insertMark;
 
 	public EditorAnwendung() {
 		createDisplay();
@@ -63,8 +61,8 @@ public class EditorAnwendung {
 		fileMenuItem[1].addSelectionListener(new SelectionAdapterOpen(shell, text, tabFolder));
 		buttonOpen.addSelectionListener(new SelectionAdapterOpen(shell, text, tabFolder));
 		// Save
-		fileMenuItem[2].addSelectionListener(new SelectionAdapterSave(shell, text, tabFolder));
-		buttonSave.addSelectionListener(new SelectionAdapterSave(shell, text, tabFolder));
+		fileMenuItem[2].addSelectionListener(new SelectionAdapterSave(shell, tabFolder));
+		buttonSave.addSelectionListener(new SelectionAdapterSave(shell, tabFolder));
 		// Quit
 		fileMenuItem[3].addSelectionListener(new SelectionAdapterQuit());
 	}
@@ -92,26 +90,6 @@ public class EditorAnwendung {
 		itemSave.setControl(buttonSave);
 		coolBar.pack();
 	}
-
-	// private void createCoolBar() {
-	//
-	// coolBar = new CoolBar(shell, SWT.BORDER);
-	// final GridData gDataCoolBar = new GridData(SWT.FILL, SWT.FILL, true, false,
-	// 1, 1);
-	// coolBar.setLayoutData(gDataCoolBar);
-	//
-	// coolBarItem = new CoolItem[coolBarItemNames.length];
-	//
-	// for (int i = 0; i < coolBarItemNames.length; i++) {
-	// coolBarItem[i] = new CoolItem(coolBar, SWT.NONE);
-	// buttons[i] = new Button(coolBar, SWT.PUSH);
-	// Image buttonImage = new Image(display, "Pictures/Open.jpg");
-	// buttons[i].setImage(buttonImage);
-	//
-	// }
-	// coolBar.pack();
-	//
-	// }
 
 	private void createDisplay() {
 		display = new Display();
@@ -165,23 +143,17 @@ public class EditorAnwendung {
 	}
 
 	public void createTabFolder() {
+		insertMark = -1;
+		System.out.println(insertMark);
 		tabFolder = new CTabFolder(shell, SWT.NONE);
-
 		// x/y auf FILL setzen, grabExcess... auf true
 		final GridData gDataTabFolder = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		tabFolder.setLayoutData(gDataTabFolder);
+
 	}
 
 	public void createTab() {
-		tab = new CTabItem(tabFolder, SWT.NONE);
-		createText();
-		tab.setText("New");
-		tab.setControl(text);
-		tabFolder.setSelection(tab);
-	}
-
-	private void createText() {
-		text = new Text(tabFolder, SWT.LEFT | SWT.MULTI);
+		CTabElement.createTabNew(tabFolder);
 	}
 
 	public void open() {

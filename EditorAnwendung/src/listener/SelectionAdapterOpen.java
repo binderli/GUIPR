@@ -11,14 +11,16 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import main.FileIO;
+
 public class SelectionAdapterOpen extends SelectionAdapter {
 
 	private final FileDialog openDialog;
-	private final CTabItem tab;
+	private final CTabFolder tabFolder;
 
 	public SelectionAdapterOpen(Shell shell, Text text, CTabFolder tabFolder) {
 		openDialog = new FileDialog(shell, SWT.OPEN);
-		this.tab = tabFolder.getSelection();
+		this.tabFolder = tabFolder;
 	}
 
 	@Override
@@ -27,7 +29,11 @@ public class SelectionAdapterOpen extends SelectionAdapter {
 		final String path = openDialog.getFilterPath();
 		final String fileName = openDialog.getFileName();
 		final String file = path + File.separator + fileName;
-
+		final CTabItem tab = tabFolder.getSelection();
+		final Text text = new Text(tabFolder, SWT.MULTI);
+		tab.setText(fileName);
+		tab.setControl(text);
+		text.setText(FileIO.read(file));
 	}
 
 }
