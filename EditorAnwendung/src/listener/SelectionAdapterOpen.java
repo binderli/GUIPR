@@ -31,9 +31,14 @@ public class SelectionAdapterOpen extends SelectionAdapter {
 		final String file = path + File.separator + fileName;
 		final CTabItem tab = tabFolder.getSelection();
 		final Text text = new Text(tabFolder, SWT.MULTI);
-		tab.setText(fileName);
-		tab.setControl(text);
-		text.setText(FileIO.read(file));
+		try {
+			text.setText(FileIO.read(file));
+			tab.setText(fileName);
+			tab.setControl(text);
+		} catch (final Exception e1) {
+			// Falls sich Datei nicht mehr an angegebenen Ort befindet
+
+		}
 	}
 
 }

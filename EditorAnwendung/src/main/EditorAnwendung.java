@@ -2,6 +2,8 @@ package main;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -11,6 +13,7 @@ import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -21,6 +24,7 @@ import listener.SelectionAdapterSave;
 
 public class EditorAnwendung {
 
+	// private final ResourceBundle messages;
 	private Button buttonOpen, buttonSave;
 	private CoolBar coolBar;
 	private Display display;
@@ -35,7 +39,7 @@ public class EditorAnwendung {
 	private Menu layer1[];
 	private Menu menuBar;
 	private MenuItem[] menuBarItem;
-	private final String[] menuNames = { "&File", "&Edit", "&Help" };
+	private final String[] menuNames = { "&Datei", "&Edit", "&Help" };
 	private Shell shell;
 
 	private CTabFolder tabFolder;
@@ -64,7 +68,16 @@ public class EditorAnwendung {
 		fileMenuItem[2].addSelectionListener(new SelectionAdapterSave(shell, tabFolder));
 		buttonSave.addSelectionListener(new SelectionAdapterSave(shell, tabFolder));
 		// Quit
-		fileMenuItem[3].addSelectionListener(new SelectionAdapterQuit());
+		fileMenuItem[3].addSelectionListener(new SelectionAdapterQuit(shell));
+		helpMenuItem[0].addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				final MessageBox version = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
+				version.setMessage("Currently running at version 1.0.0");
+				version.open();
+			}
+		});
+
 	}
 
 	public void createCoolBar() {
