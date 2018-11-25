@@ -50,16 +50,14 @@ public class EditorAnwendung {
 	private CTabItem tab;
 	private CTabFolder tabFolder;
 	private Text text;
-	private TextColorDialog dlg;
-	
 	private Color color;
 	private ResourceBundle message;
-	  
+
 	private MenuItem fileTitle, editTitle, helpTitle;
-    private Menu fileMenu, editMenu, helpMenu;
-    private MenuItem fileNewItem, fileOpenItem, fileSaveItem, fileQuitItem;
-    private MenuItem editTextColorItem;
-    private MenuItem helpHelpItem;  
+	private Menu fileMenu, editMenu, helpMenu;
+	private MenuItem fileNewItem, fileOpenItem, fileSaveItem, fileQuitItem;
+	private MenuItem editTextColorItem;
+	private MenuItem helpHelpItem;
 
 	public EditorAnwendung(ResourceBundle rb) {
 		createDisplay(rb);
@@ -75,31 +73,30 @@ public class EditorAnwendung {
 	private void createListeners() {
 
 		// New
-				fileNewItem.addSelectionListener(new SelectionAdapterNew(tabFolder));
-				// Open
-				fileOpenItem.addSelectionListener(new SelectionAdapterOpen(shell, text, tabFolder));
-				buttonOpen.addSelectionListener(new SelectionAdapterOpen(shell, text, tabFolder));
-				// Save
-				fileSaveItem.addSelectionListener(new SelectionAdapterSave(shell, text, tabFolder));
-				buttonSave.addSelectionListener(new SelectionAdapterSave(shell, text, tabFolder));
-				// Quit
-				fileQuitItem.addSelectionListener(new SelectionAdapterQuit(tabFolder, message));
-				//Help
-				helpHelpItem.addSelectionListener(new SelectionAdapterHelp(shell, message));
-				
-				editTextColorItem.addSelectionListener(new SelectionAdapter() {
-					@Override
-					public void widgetSelected(SelectionEvent arg0) {
-						ColorEditor edit = new ColorEditor(shell, shell.getStyle(), message);
-						color = (Color) edit.open();
-						Text text =  (Text) tabFolder.getSelection().getControl();
-						text.setForeground(color);
-					}
-					});
-				
-				shell.addDisposeListener(new SelectionAdapterQuit(tabFolder, message));
-					
-		
+		fileNewItem.addSelectionListener(new SelectionAdapterNew(tabFolder));
+		// Open
+		fileOpenItem.addSelectionListener(new SelectionAdapterOpen(shell, text, tabFolder));
+		buttonOpen.addSelectionListener(new SelectionAdapterOpen(shell, text, tabFolder));
+		// Save
+		fileSaveItem.addSelectionListener(new SelectionAdapterSave(shell, text, tabFolder));
+		buttonSave.addSelectionListener(new SelectionAdapterSave(shell, text, tabFolder));
+		// Quit
+		fileQuitItem.addSelectionListener(new SelectionAdapterQuit(tabFolder, message));
+		// Help
+		helpHelpItem.addSelectionListener(new SelectionAdapterHelp(shell, message));
+
+		editTextColorItem.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				final ColorEditor edit = new ColorEditor(shell, shell.getStyle(), message);
+				color = (Color) edit.open();
+				final Text text = (Text) tabFolder.getSelection().getControl();
+				text.setForeground(color);
+			}
+		});
+
+		shell.addDisposeListener(new SelectionAdapterQuit(tabFolder, message));
+
 //		// New
 //		fileMenuItem[0].addSelectionListener(new SelectionAdapterNew(tabFolder));
 //		// Open
@@ -118,7 +115,7 @@ public class EditorAnwendung {
 //				Text text =  (Text) tabFolder.getSelection().getControl();
 //				text.setForeground(color);
 //			}
-		
+
 	}
 
 	public void createCoolBar() {
@@ -173,53 +170,52 @@ public class EditorAnwendung {
 
 	private void createMenu() {
 
-		  menuBar = new Menu(shell, SWT.BAR);
-		    shell.setMenuBar(menuBar);
-		    
-		    // Toolbar mit Items bef�llen
-		    fileTitle = new MenuItem(menuBar, SWT.CASCADE);
-		    fileTitle.setText(message.getString("menuFile"));
-		 	fileMenu = new Menu(shell, SWT.DROP_DOWN);
-		 	fileTitle.setMenu(fileMenu);
-		 
-		 	editTitle = new MenuItem(menuBar, SWT.CASCADE);
-		 	editTitle.setText(message.getString("menuEdit"));
-		 	editMenu = new Menu(shell, SWT.DROP_DOWN);
-		 	editTitle.setMenu(editMenu);
-		 	
-		 	helpTitle = new MenuItem(menuBar, SWT.CASCADE);
-		 	helpTitle.setText(message.getString("menuHelp"));
-		 	helpMenu = new Menu(shell, SWT.DROP_DOWN);
-		 	helpTitle.setMenu(helpMenu);
-		 	
-		 	// Item File mit Elemte bef�llen
-		 	fileNewItem = new MenuItem(fileMenu, SWT.PUSH);
-		 	fileNewItem.setText(message.getString("fileNewItem"));
-		 	fileNewItem.setAccelerator(SWT.CTRL + 'N');
-		 	
-		 	fileOpenItem = new MenuItem(fileMenu, SWT.PUSH);
-		 	fileOpenItem.setText(message.getString("fileOpenItem"));
-		 	fileOpenItem.setAccelerator(SWT.CTRL + 'O');
-		 	
-		 	fileSaveItem = new MenuItem(fileMenu, SWT.PUSH);
-		 	fileSaveItem.setText(message.getString("fileSaveItem"));
-		 	fileSaveItem.setAccelerator(SWT.CTRL + 'S');
-		 	
-		 	fileQuitItem = new MenuItem(fileMenu, SWT.PUSH);
-		 	fileQuitItem.setText(message.getString("fileQuitItem"));
-		 	fileQuitItem.setAccelerator(SWT.CTRL + 'Q');
-		 	
-		 	// Item Edit mit Elemente bef�llen
-		 	editTextColorItem = new MenuItem(editMenu, SWT.PUSH);
-		 	editTextColorItem.setText(message.getString("editColorItem"));
-		 	editTextColorItem.setAccelerator(SWT.CTRL + 'C');
-		 	
-		 	// Item Help mit Elemente bef�llen
-		 	helpHelpItem = new MenuItem(helpMenu, SWT.PUSH);
-		 	helpHelpItem.setText(message.getString("helpItem"));
-		 	helpHelpItem.setAccelerator(SWT.CTRL + 'V');
-		
-		
+		menuBar = new Menu(shell, SWT.BAR);
+		shell.setMenuBar(menuBar);
+
+		// Toolbar mit Items bef�llen
+		fileTitle = new MenuItem(menuBar, SWT.CASCADE);
+		fileTitle.setText(message.getString("menuFile"));
+		fileMenu = new Menu(shell, SWT.DROP_DOWN);
+		fileTitle.setMenu(fileMenu);
+
+		editTitle = new MenuItem(menuBar, SWT.CASCADE);
+		editTitle.setText(message.getString("menuEdit"));
+		editMenu = new Menu(shell, SWT.DROP_DOWN);
+		editTitle.setMenu(editMenu);
+
+		helpTitle = new MenuItem(menuBar, SWT.CASCADE);
+		helpTitle.setText(message.getString("menuHelp"));
+		helpMenu = new Menu(shell, SWT.DROP_DOWN);
+		helpTitle.setMenu(helpMenu);
+
+		// Item File mit Elemte bef�llen
+		fileNewItem = new MenuItem(fileMenu, SWT.PUSH);
+		fileNewItem.setText(message.getString("fileNewItem"));
+		fileNewItem.setAccelerator(SWT.CTRL + 'N');
+
+		fileOpenItem = new MenuItem(fileMenu, SWT.PUSH);
+		fileOpenItem.setText(message.getString("fileOpenItem"));
+		fileOpenItem.setAccelerator(SWT.CTRL + 'O');
+
+		fileSaveItem = new MenuItem(fileMenu, SWT.PUSH);
+		fileSaveItem.setText(message.getString("fileSaveItem"));
+		fileSaveItem.setAccelerator(SWT.CTRL + 'S');
+
+		fileQuitItem = new MenuItem(fileMenu, SWT.PUSH);
+		fileQuitItem.setText(message.getString("fileQuitItem"));
+		fileQuitItem.setAccelerator(SWT.CTRL + 'Q');
+
+		// Item Edit mit Elemente bef�llen
+		editTextColorItem = new MenuItem(editMenu, SWT.PUSH);
+		editTextColorItem.setText(message.getString("editColorItem"));
+		editTextColorItem.setAccelerator(SWT.CTRL + 'C');
+
+		// Item Help mit Elemente bef�llen
+		helpHelpItem = new MenuItem(helpMenu, SWT.PUSH);
+		helpHelpItem.setText(message.getString("helpItem"));
+		helpHelpItem.setAccelerator(SWT.CTRL + 'V');
+
 //		menuBar = new Menu(shell, SWT.BAR);
 //		shell.setMenuBar(menuBar);
 //		menuBarItem = new MenuItem[menuNames.length];
